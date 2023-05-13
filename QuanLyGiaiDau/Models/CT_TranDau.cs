@@ -2,9 +2,11 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace QuanLyGiaiDau.Models
 {
+    [Keyless]
     public class CT_TranDau
     {
         public virtual GiaiDau GiaiDau { get; set; }

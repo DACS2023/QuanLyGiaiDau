@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QuanLyGiaiDau.Models
@@ -8,6 +9,7 @@ namespace QuanLyGiaiDau.Models
         KichHoat,
         VoHieuHoa
     }
+    [Keyless]
     public class CT_DoiDau
     {
 
