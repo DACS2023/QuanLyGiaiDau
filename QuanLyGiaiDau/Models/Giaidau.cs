@@ -6,7 +6,7 @@ using System;
 
 namespace QuanLyGiaiDau.Models
 {
-    public class Giaidau
+    public class GiaiDau
     {
         [Key]
         [DisplayName("Id giải đấu")]
