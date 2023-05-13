@@ -15,23 +15,25 @@ namespace QuanLyGiaiDau.Models
 
         [DisplayName("Tên giải đấu")]
         [Column(TypeName ="nvarchar(150)")]
-        public string Tengiaidau { get; set; }
+        public string TenGiaiDau { get; set; }
 
         [DisplayName("Ngày bắt đầu")]
         [Column(TypeName = "Datetime")]
-        public DateTime Ngaybatdau { get; set; }
+        public DateTime NgayBatDau { get; set; }
 
         [DisplayName("Mô tả")]
         [Column(TypeName = "nvarchar(150)")]
-        public string Mota { get; set; }
+        public string MoTa { get; set; }
 
         [DisplayName("Địa điểm")]
         [Column(TypeName = "nvarchar(150)")]
-        public string Diadiem { get; set; }
+        public string DiaDiem { get; set; }
 
         [DisplayName("Trạng Thái")]
         [Column(TypeName = "bit")]
         public bool TrangThai { get; set; }
+
+        public virtual LoaiGiaiDau LoaiGiaiDau { get; set; }
 
     }
 }
