@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace QuanLyGiaiDau.Models
 {
@@ -18,6 +20,6 @@ namespace QuanLyGiaiDau.Models
 
         public DbSet<GiaiDau> GiaiDaus { get; set; }
 
-
+        
     }
 }

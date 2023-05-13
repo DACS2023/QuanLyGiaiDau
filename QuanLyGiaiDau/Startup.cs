@@ -32,7 +32,7 @@ namespace QuanLyGiaiDau
 
             services.AddControllers();
             services.AddDbContext<QuanLyGiaiDauContext>(opt =>
-                                               opt.UseInMemoryDatabase("QL_GiaiDau"));
+                                               opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             //services.AddSwaggerGen(c =>
             //{
             //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "QuanLyGiaiDau", Version = "v1" });
