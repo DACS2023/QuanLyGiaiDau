@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace QuanLyGiaiDau.Models
 {
-    public class LoaiGiaiDau : MonTheThao
+    public class LoaiGiaiDau 
     {
         [Key]
         [DisplayName("Id Loại Giải")]
