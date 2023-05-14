@@ -36,7 +36,8 @@ namespace QuanLyGiaiDau.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users.Where(x => x.TrangThai == true && x.IdUser == id).FirstAsync();
+                //.FirstAsync(id);FindAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -197,7 +198,7 @@ namespace QuanLyGiaiDau.Controllers
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await _context.Users
-                .Select(x => UserDTO(x))
+                .Select(x => UserDTO(x)).Where(x=>x.TrangThai==true)
                 .ToListAsync();
         }
 
