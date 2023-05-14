@@ -5,17 +5,11 @@ using System;
 
 namespace QuanLyGiaiDau.Models
 {
-    public enum TrangThaiUser
-    {
-        KichHoat,
-        VoHieuHoa
-    }
-
     public class User
     {
         [Key]
         [Column(TypeName = "varchar(10)")]
-        public int IdUser { get; set; }
+        public string IdUser { get; set; }
 
         [Column(TypeName = "nvarchar(100)")]
         public string FullName { get; set; }
@@ -41,9 +35,8 @@ namespace QuanLyGiaiDau.Models
         [Column(TypeName = "nvarchar(50)")]
         public string Role { get; set; }
 
-        [Column(TypeName = "int")]
-        [NotMapped]
-        public TrangThaiUser TrangThai { get; set; }
+        [Column(TypeName = "bit")]
+        public bool TrangThai { get; set; }
 
 
     }

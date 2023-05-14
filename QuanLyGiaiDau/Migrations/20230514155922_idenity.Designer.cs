@@ -10,21 +10,24 @@ using QuanLyGiaiDau.Models;
 namespace QuanLyGiaiDau.Migrations
 {
     [DbContext(typeof(QuanLyGiaiDauContext))]
-    [Migration("20230513174841_idenity")]
+    [Migration("20230514155922_idenity")]
     partial class idenity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0");
+                .HasAnnotation("ProductVersion", "5.0.17")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("QuanLyGiaiDau.Models.CT_DoiDau", b =>
                 {
                     b.Property<string>("DoiDauIdTranDau")
                         .HasColumnType("varchar(10)");
+
+                    b.Property<bool>("TrangThaiTV")
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserIdUser")
                         .HasColumnType("varchar(10)");
@@ -87,7 +90,7 @@ namespace QuanLyGiaiDau.Migrations
                     b.Property<int>("IdGiaiDau")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("DiaDiem")
                         .HasColumnType("nvarchar(150)");
@@ -119,7 +122,7 @@ namespace QuanLyGiaiDau.Migrations
                     b.Property<int>("IdloaiGiaiDau")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("MonTheThaoIdMonTheThao")
                         .HasColumnType("varchar(10)");
@@ -150,7 +153,6 @@ namespace QuanLyGiaiDau.Migrations
             modelBuilder.Entity("QuanLyGiaiDau.Models.User", b =>
                 {
                     b.Property<string>("IdUser")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(10)");
 
                     b.Property<string>("Address")
@@ -176,6 +178,9 @@ namespace QuanLyGiaiDau.Migrations
 
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("TrangThai")
+                        .HasColumnType("bit");
 
                     b.HasKey("IdUser");
 

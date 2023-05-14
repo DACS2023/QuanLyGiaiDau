@@ -44,7 +44,8 @@ namespace QuanLyGiaiDau.Migrations
                     PhoneNumber = table.Column<string>(type: "varchar(15)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(255)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(500)", nullable: true),
-                    Role = table.Column<string>(type: "nvarchar(50)", nullable: true)
+                    Role = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    TrangThai = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -76,7 +77,8 @@ namespace QuanLyGiaiDau.Migrations
                 columns: table => new
                 {
                     DoiDauIdTranDau = table.Column<string>(type: "varchar(10)", nullable: true),
-                    UserIdUser = table.Column<string>(type: "varchar(10)", nullable: true)
+                    UserIdUser = table.Column<string>(type: "varchar(10)", nullable: true),
+                    TrangThaiTV = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
