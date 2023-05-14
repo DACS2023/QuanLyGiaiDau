@@ -10,8 +10,8 @@ using QuanLyGiaiDau.Models;
 namespace QuanLyGiaiDau.Migrations
 {
     [DbContext(typeof(QuanLyGiaiDauContext))]
-    [Migration("20230514155922_idenity")]
-    partial class idenity
+    [Migration("20230514174959_update")]
+    partial class update
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -124,7 +124,7 @@ namespace QuanLyGiaiDau.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("MonTheThaoIdMonTheThao")
+                    b.Property<string>("IdMonTheThao")
                         .HasColumnType("varchar(10)");
 
                     b.Property<bool>("TrangThai")
@@ -132,7 +132,7 @@ namespace QuanLyGiaiDau.Migrations
 
                     b.HasKey("IdloaiGiaiDau");
 
-                    b.HasIndex("MonTheThaoIdMonTheThao");
+                    b.HasIndex("IdMonTheThao");
 
                     b.ToTable("LoaiGiaiDau");
                 });
@@ -230,7 +230,7 @@ namespace QuanLyGiaiDau.Migrations
                 {
                     b.HasOne("QuanLyGiaiDau.Models.MonTheThao", "MonTheThao")
                         .WithMany()
-                        .HasForeignKey("MonTheThaoIdMonTheThao");
+                        .HasForeignKey("IdMonTheThao");
 
                     b.Navigation("MonTheThao");
                 });

@@ -17,6 +17,11 @@ namespace QuanLyGiaiDau.Models
         [Column(TypeName = "bit")]
         public bool TrangThai { get; set; }
 
+        [DisplayName("Id Môn Thể Thao")]
+        [Column(TypeName = "varchar(10)")]
+        public string IdMonTheThao { get; set; }
+
+        [ForeignKey("IdMonTheThao")]
         public virtual MonTheThao MonTheThao { get; set; }
     }
 }
