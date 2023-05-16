@@ -11,47 +11,47 @@ namespace QuanLyGiaiDau.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LoaiGiaiDausController : ControllerBase
+    public class CT_TranDauController : ControllerBase
     {
         private readonly QuanLyGiaiDauContext _context;
 
-        public LoaiGiaiDausController(QuanLyGiaiDauContext context)
+        public CT_TranDauController(QuanLyGiaiDauContext context)
         {
             _context = context;
         }
 
-        // GET: api/LoaiGiaiDaus
+        // GET: api/CT_TranDau
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LoaiGiaiDau>>> GetLoaiGiaiDau()
+        public async Task<ActionResult<IEnumerable<CT_TranDau>>> GetCT_TranDaus()
         {
-            return await _context.LoaiGiaiDau.ToListAsync();
+            return await _context.CT_TranDaus.ToListAsync();
         }
 
-        // GET: api/LoaiGiaiDaus/5
+        // GET: api/CT_TranDau/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<LoaiGiaiDau>> GetLoaiGiaiDau(int id)
+        public async Task<ActionResult<CT_TranDau>> GetCT_TranDau(int id)
         {
-            var loaiGiaiDau = await _context.LoaiGiaiDau.FindAsync(id);
+            var cT_TranDau = await _context.CT_TranDaus.FindAsync(id);
 
-            if (loaiGiaiDau == null)
+            if (cT_TranDau == null)
             {
                 return NotFound();
             }
 
-            return loaiGiaiDau;
+            return cT_TranDau;
         }
 
-        // PUT: api/LoaiGiaiDaus/5
+        // PUT: api/CT_TranDau/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLoaiGiaiDau(int id, LoaiGiaiDau loaiGiaiDau)
+        public async Task<IActionResult> PutCT_TranDau(int id, CT_TranDau cT_TranDau)
         {
-            if (id != loaiGiaiDau.IdloaiGiaiDau)
+            if (id != cT_TranDau.IdCTTranDau)
             {
                 return BadRequest();
             }
 
-            _context.Entry(loaiGiaiDau).State = EntityState.Modified;
+            _context.Entry(cT_TranDau).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace QuanLyGiaiDau.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LoaiGiaiDauExists(id))
+                if (!CT_TranDauExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace QuanLyGiaiDau.Controllers
             return NoContent();
         }
 
-        // POST: api/LoaiGiaiDaus
+        // POST: api/CT_TranDau
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<LoaiGiaiDau>> PostLoaiGiaiDau(LoaiGiaiDau loaiGiaiDau)
+        public async Task<ActionResult<CT_TranDau>> PostCT_TranDau(CT_TranDau cT_TranDau)
         {
-            _context.LoaiGiaiDau.Add(loaiGiaiDau);
+            _context.CT_TranDaus.Add(cT_TranDau);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLoaiGiaiDau", new { id = loaiGiaiDau.IdloaiGiaiDau }, loaiGiaiDau);
+            return CreatedAtAction("GetCT_TranDau", new { id = cT_TranDau.IdCTTranDau }, cT_TranDau);
         }
 
-        // DELETE: api/LoaiGiaiDaus/5
+        // DELETE: api/CT_TranDau/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLoaiGiaiDau(int id)
+        public async Task<IActionResult> DeleteCT_TranDau(int id)
         {
-            var loaiGiaiDau = await _context.LoaiGiaiDau.FindAsync(id);
-            if (loaiGiaiDau == null)
+            var cT_TranDau = await _context.CT_TranDaus.FindAsync(id);
+            if (cT_TranDau == null)
             {
                 return NotFound();
             }
 
-            _context.LoaiGiaiDau.Remove(loaiGiaiDau);
+            _context.CT_TranDaus.Remove(cT_TranDau);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool LoaiGiaiDauExists(int id)
+        private bool CT_TranDauExists(int id)
         {
-            return _context.LoaiGiaiDau.Any(e => e.IdloaiGiaiDau == id);
+            return _context.CT_TranDaus.Any(e => e.IdCTTranDau == id);
         }
     }
 }

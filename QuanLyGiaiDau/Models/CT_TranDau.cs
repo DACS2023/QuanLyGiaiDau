@@ -7,26 +7,27 @@ using System.ComponentModel;
 
 namespace QuanLyGiaiDau.Models
 {
-    [Keyless]
+
     public class CT_TranDau
     {
-        
+        [Key]
+        [Column(TypeName = "int")]
+        public int IdCTTranDau { get; set; }
+
         [Column(TypeName = "int")]
         public int IdGiaiDau { get; set; }
+
         [ForeignKey("IdGiaiDau")]
         public virtual GiaiDau GiaiDau { get; set; }
 
-
-        
         [Column(TypeName = "varchar(10)")]
         public string IdDoiDau { get; set; }
+
         [ForeignKey("IdDoiDau")]
         public virtual DoiDau DoiDau { get; set; }
 
-
-        [Column(TypeName = "DateTime")]
+        [Column(TypeName = "datetime")]
         public DateTime ThoiGianBatDau { get; set; }
-
 
         [Column(TypeName = "int")]
         public int VongDau { get; set; }
@@ -37,9 +38,7 @@ namespace QuanLyGiaiDau.Models
         [Column(TypeName = "int")]
         public int TiSo { get; set; }
 
-        [Column(TypeName = "varchar")]
+        [Column(TypeName = "varchar(50)")]
         public string KetQua { get; set; }
-
-
     }
 }

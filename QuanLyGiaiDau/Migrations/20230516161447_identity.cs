@@ -76,12 +76,15 @@ namespace QuanLyGiaiDau.Migrations
                 name: "CT_DoiDaus",
                 columns: table => new
                 {
+                    IdCTDoiDau = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     IdUser = table.Column<string>(type: "varchar(10)", nullable: true),
                     IdDoiDau = table.Column<string>(type: "varchar(10)", nullable: true),
                     TrangThaiTV = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_CT_DoiDaus", x => x.IdCTDoiDau);
                     table.ForeignKey(
                         name: "FK_CT_DoiDaus_DoiDaus_IdDoiDau",
                         column: x => x.IdDoiDau,
@@ -124,16 +127,19 @@ namespace QuanLyGiaiDau.Migrations
                 name: "CT_TranDaus",
                 columns: table => new
                 {
+                    IdCTTranDau = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     IdGiaiDau = table.Column<int>(type: "int", nullable: false),
                     IdDoiDau = table.Column<string>(type: "varchar(10)", nullable: true),
-                    ThoiGianBatDau = table.Column<DateTime>(type: "DateTime", nullable: false),
+                    ThoiGianBatDau = table.Column<DateTime>(type: "datetime", nullable: false),
                     VongDau = table.Column<int>(type: "int", nullable: false),
                     SanDau = table.Column<string>(type: "nvarchar(256)", nullable: true),
                     TiSo = table.Column<int>(type: "int", nullable: false),
-                    KetQua = table.Column<string>(type: "varchar", nullable: true)
+                    KetQua = table.Column<string>(type: "varchar(50)", nullable: true)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_CT_TranDaus", x => x.IdCTTranDau);
                     table.ForeignKey(
                         name: "FK_CT_TranDaus_DoiDaus_IdDoiDau",
                         column: x => x.IdDoiDau,

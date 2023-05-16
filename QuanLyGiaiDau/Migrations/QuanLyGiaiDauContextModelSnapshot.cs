@@ -21,6 +21,11 @@ namespace QuanLyGiaiDau.Migrations
 
             modelBuilder.Entity("QuanLyGiaiDau.Models.CT_DoiDau", b =>
                 {
+                    b.Property<int>("IdCTDoiDau")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<string>("IdDoiDau")
                         .HasColumnType("varchar(10)");
 
@@ -29,6 +34,8 @@ namespace QuanLyGiaiDau.Migrations
 
                     b.Property<bool>("TrangThaiTV")
                         .HasColumnType("bit");
+
+                    b.HasKey("IdCTDoiDau");
 
                     b.HasIndex("IdDoiDau");
 
@@ -39,6 +46,11 @@ namespace QuanLyGiaiDau.Migrations
 
             modelBuilder.Entity("QuanLyGiaiDau.Models.CT_TranDau", b =>
                 {
+                    b.Property<int>("IdCTTranDau")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<string>("IdDoiDau")
                         .HasColumnType("varchar(10)");
 
@@ -46,19 +58,21 @@ namespace QuanLyGiaiDau.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("KetQua")
-                        .HasColumnType("varchar");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("SanDau")
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<DateTime>("ThoiGianBatDau")
-                        .HasColumnType("DateTime");
+                        .HasColumnType("datetime");
 
                     b.Property<int>("TiSo")
                         .HasColumnType("int");
 
                     b.Property<int>("VongDau")
                         .HasColumnType("int");
+
+                    b.HasKey("IdCTTranDau");
 
                     b.HasIndex("IdDoiDau");
 

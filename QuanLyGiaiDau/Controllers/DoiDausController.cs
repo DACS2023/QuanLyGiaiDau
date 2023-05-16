@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QuanLyGiaiDau.Models;
 
 namespace QuanLyGiaiDau.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class DoiDausController : ControllerBase
+    public class DoiDausController : Controller
     {
         private readonly QuanLyGiaiDauContext _context;
 
@@ -20,97 +18,130 @@ namespace QuanLyGiaiDau.Controllers
             _context = context;
         }
 
-        // GET: api/DoiDaus
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<DoiDau>>> GetDoiDaus()
+        // GET: DoiDaus
+        public async Task<IActionResult> Index()
         {
-            return await _context.DoiDaus.ToListAsync();
+            return View(await _context.DoiDaus.ToListAsync());
         }
 
-        // GET: api/DoiDaus/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<DoiDau>> GetDoiDau(string id)
+        // GET: DoiDaus/Details/5
+        public async Task<IActionResult> Details(string id)
         {
-            var doiDau = await _context.DoiDaus.FindAsync(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var doiDau = await _context.DoiDaus
+                .FirstOrDefaultAsync(m => m.IdDoiDau == id);
             if (doiDau == null)
             {
                 return NotFound();
             }
 
-            return doiDau;
+            return View(doiDau);
         }
 
-        // PUT: api/DoiDaus/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDoiDau(string id, DoiDau doiDau)
+        // GET: DoiDaus/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: DoiDaus/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("IdDoiDau,TenDoiDau,Logo")] DoiDau doiDau)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(doiDau);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(doiDau);
+        }
+
+        // GET: DoiDaus/Edit/5
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var doiDau = await _context.DoiDaus.FindAsync(id);
+            if (doiDau == null)
+            {
+                return NotFound();
+            }
+            return View(doiDau);
+        }
+
+        // POST: DoiDaus/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string id, [Bind("IdDoiDau,TenDoiDau,Logo")] DoiDau doiDau)
         {
             if (id != doiDau.IdDoiDau)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(doiDau).State = EntityState.Modified;
-
-            try
+            if (ModelState.IsValid)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DoiDauExists(id))
+                try
                 {
-                    return NotFound();
+                    _context.Update(doiDau);
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!DoiDauExists(doiDau.IdDoiDau))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
+                return RedirectToAction(nameof(Index));
             }
-
-            return NoContent();
+            return View(doiDau);
         }
 
-        // POST: api/DoiDaus
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<DoiDau>> PostDoiDau(DoiDau doiDau)
+        // GET: DoiDaus/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
-            _context.DoiDaus.Add(doiDau);
-            try
+            if (id == null)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (DoiDauExists(doiDau.IdDoiDau))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
 
-            return CreatedAtAction("GetDoiDau", new { id = doiDau.IdDoiDau }, doiDau);
-        }
-
-        // DELETE: api/DoiDaus/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDoiDau(string id)
-        {
-            var doiDau = await _context.DoiDaus.FindAsync(id);
+            var doiDau = await _context.DoiDaus
+                .FirstOrDefaultAsync(m => m.IdDoiDau == id);
             if (doiDau == null)
             {
                 return NotFound();
             }
 
+            return View(doiDau);
+        }
+
+        // POST: DoiDaus/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var doiDau = await _context.DoiDaus.FindAsync(id);
             _context.DoiDaus.Remove(doiDau);
             await _context.SaveChangesAsync();
-
-            return NoContent();
+            return RedirectToAction(nameof(Index));
         }
 
         private bool DoiDauExists(string id)
