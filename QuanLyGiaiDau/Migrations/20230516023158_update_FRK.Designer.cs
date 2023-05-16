@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuanLyGiaiDau.Models;
 
 namespace QuanLyGiaiDau.Migrations
 {
     [DbContext(typeof(QuanLyGiaiDauContext))]
-    partial class QuanLyGiaiDauContextModelSnapshot : ModelSnapshot
+    [Migration("20230516023158_update_FRK")]
+    partial class update_FRK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

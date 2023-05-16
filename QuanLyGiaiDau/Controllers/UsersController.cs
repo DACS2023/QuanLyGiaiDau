@@ -29,14 +29,14 @@ namespace QuanLyGiaiDau.Controllers
 
         // GET: Users/Details/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUserById(string? id)
+        public async Task<ActionResult<User>> GetUserById(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.Users.Where(x => x.TrangThai == true && x.IdUser == id).FirstAsync();
+            var user = await _context.Users.Where(x => x.TrangThai == true && x.IdUser.Equals(id)).FirstAsync();
                 //.FirstAsync(id);FindAsync(id);
             if (user == null)
             {
