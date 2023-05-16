@@ -11,13 +11,13 @@ namespace QuanLyGiaiDau.Migrations
                 name: "DoiDaus",
                 columns: table => new
                 {
-                    IdTranDau = table.Column<string>(type: "varchar(10)", nullable: false),
+                    IdDoiDau = table.Column<string>(type: "varchar(10)", nullable: false),
                     TenDoiDau = table.Column<string>(type: "nvarchar(256)", nullable: true),
                     Logo = table.Column<string>(type: "nvarchar(256)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DoiDaus", x => x.IdTranDau);
+                    table.PrimaryKey("PK_DoiDaus", x => x.IdDoiDau);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,14 +59,14 @@ namespace QuanLyGiaiDau.Migrations
                     IdloaiGiaiDau = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TrangThai = table.Column<bool>(type: "bit", nullable: false),
-                    MonTheThaoIdMonTheThao = table.Column<string>(type: "varchar(10)", nullable: true)
+                    IdMonTheThao = table.Column<string>(type: "varchar(10)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_LoaiGiaiDau", x => x.IdloaiGiaiDau);
                     table.ForeignKey(
-                        name: "FK_LoaiGiaiDau_MonTheThaos_MonTheThaoIdMonTheThao",
-                        column: x => x.MonTheThaoIdMonTheThao,
+                        name: "FK_LoaiGiaiDau_MonTheThaos_IdMonTheThao",
+                        column: x => x.IdMonTheThao,
                         principalTable: "MonTheThaos",
                         principalColumn: "IdMonTheThao",
                         onDelete: ReferentialAction.Restrict);
@@ -76,21 +76,21 @@ namespace QuanLyGiaiDau.Migrations
                 name: "CT_DoiDaus",
                 columns: table => new
                 {
-                    DoiDauIdTranDau = table.Column<string>(type: "varchar(10)", nullable: true),
-                    UserIdUser = table.Column<string>(type: "varchar(10)", nullable: true),
+                    IdUser = table.Column<string>(type: "varchar(10)", nullable: true),
+                    IdDoiDau = table.Column<string>(type: "varchar(10)", nullable: true),
                     TrangThaiTV = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.ForeignKey(
-                        name: "FK_CT_DoiDaus_DoiDaus_DoiDauIdTranDau",
-                        column: x => x.DoiDauIdTranDau,
+                        name: "FK_CT_DoiDaus_DoiDaus_IdDoiDau",
+                        column: x => x.IdDoiDau,
                         principalTable: "DoiDaus",
-                        principalColumn: "IdTranDau",
+                        principalColumn: "IdDoiDau",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_CT_DoiDaus_Users_UserIdUser",
-                        column: x => x.UserIdUser,
+                        name: "FK_CT_DoiDaus_Users_IdUser",
+                        column: x => x.IdUser,
                         principalTable: "Users",
                         principalColumn: "IdUser",
                         onDelete: ReferentialAction.Restrict);
@@ -107,14 +107,14 @@ namespace QuanLyGiaiDau.Migrations
                     MoTa = table.Column<string>(type: "nvarchar(150)", nullable: true),
                     DiaDiem = table.Column<string>(type: "nvarchar(150)", nullable: true),
                     TrangThai = table.Column<bool>(type: "bit", nullable: false),
-                    LoaiGiaiDauIdloaiGiaiDau = table.Column<int>(type: "int", nullable: true)
+                    IdLoaiGiaiDau = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_GiaiDaus", x => x.IdGiaiDau);
                     table.ForeignKey(
-                        name: "FK_GiaiDaus_LoaiGiaiDau_LoaiGiaiDauIdloaiGiaiDau",
-                        column: x => x.LoaiGiaiDauIdloaiGiaiDau,
+                        name: "FK_GiaiDaus_LoaiGiaiDau_IdLoaiGiaiDau",
+                        column: x => x.IdLoaiGiaiDau,
                         principalTable: "LoaiGiaiDau",
                         principalColumn: "IdloaiGiaiDau",
                         onDelete: ReferentialAction.Restrict);
@@ -124,8 +124,8 @@ namespace QuanLyGiaiDau.Migrations
                 name: "CT_TranDaus",
                 columns: table => new
                 {
-                    GiaiDauIdGiaiDau = table.Column<int>(type: "int", nullable: true),
-                    DoiDauIdTranDau = table.Column<string>(type: "varchar(10)", nullable: true),
+                    IdGiaiDau = table.Column<int>(type: "int", nullable: false),
+                    IdDoiDau = table.Column<string>(type: "varchar(10)", nullable: true),
                     ThoiGianBatDau = table.Column<DateTime>(type: "DateTime", nullable: false),
                     VongDau = table.Column<int>(type: "int", nullable: false),
                     SanDau = table.Column<string>(type: "nvarchar(256)", nullable: true),
@@ -135,48 +135,48 @@ namespace QuanLyGiaiDau.Migrations
                 constraints: table =>
                 {
                     table.ForeignKey(
-                        name: "FK_CT_TranDaus_DoiDaus_DoiDauIdTranDau",
-                        column: x => x.DoiDauIdTranDau,
+                        name: "FK_CT_TranDaus_DoiDaus_IdDoiDau",
+                        column: x => x.IdDoiDau,
                         principalTable: "DoiDaus",
-                        principalColumn: "IdTranDau",
+                        principalColumn: "IdDoiDau",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_CT_TranDaus_GiaiDaus_GiaiDauIdGiaiDau",
-                        column: x => x.GiaiDauIdGiaiDau,
+                        name: "FK_CT_TranDaus_GiaiDaus_IdGiaiDau",
+                        column: x => x.IdGiaiDau,
                         principalTable: "GiaiDaus",
                         principalColumn: "IdGiaiDau",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CT_DoiDaus_DoiDauIdTranDau",
+                name: "IX_CT_DoiDaus_IdDoiDau",
                 table: "CT_DoiDaus",
-                column: "DoiDauIdTranDau");
+                column: "IdDoiDau");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CT_DoiDaus_UserIdUser",
+                name: "IX_CT_DoiDaus_IdUser",
                 table: "CT_DoiDaus",
-                column: "UserIdUser");
+                column: "IdUser");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CT_TranDaus_DoiDauIdTranDau",
+                name: "IX_CT_TranDaus_IdDoiDau",
                 table: "CT_TranDaus",
-                column: "DoiDauIdTranDau");
+                column: "IdDoiDau");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CT_TranDaus_GiaiDauIdGiaiDau",
+                name: "IX_CT_TranDaus_IdGiaiDau",
                 table: "CT_TranDaus",
-                column: "GiaiDauIdGiaiDau");
+                column: "IdGiaiDau");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GiaiDaus_LoaiGiaiDauIdloaiGiaiDau",
+                name: "IX_GiaiDaus_IdLoaiGiaiDau",
                 table: "GiaiDaus",
-                column: "LoaiGiaiDauIdloaiGiaiDau");
+                column: "IdLoaiGiaiDau");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LoaiGiaiDau_MonTheThaoIdMonTheThao",
+                name: "IX_LoaiGiaiDau_IdMonTheThao",
                 table: "LoaiGiaiDau",
-                column: "MonTheThaoIdMonTheThao");
+                column: "IdMonTheThao");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

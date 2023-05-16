@@ -21,28 +21,28 @@ namespace QuanLyGiaiDau.Migrations
 
             modelBuilder.Entity("QuanLyGiaiDau.Models.CT_DoiDau", b =>
                 {
-                    b.Property<string>("DoiDauIdTranDau")
+                    b.Property<string>("IdDoiDau")
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<string>("IdUser")
                         .HasColumnType("varchar(10)");
 
                     b.Property<bool>("TrangThaiTV")
                         .HasColumnType("bit");
 
-                    b.Property<string>("UserIdUser")
-                        .HasColumnType("varchar(10)");
+                    b.HasIndex("IdDoiDau");
 
-                    b.HasIndex("DoiDauIdTranDau");
-
-                    b.HasIndex("UserIdUser");
+                    b.HasIndex("IdUser");
 
                     b.ToTable("CT_DoiDaus");
                 });
 
             modelBuilder.Entity("QuanLyGiaiDau.Models.CT_TranDau", b =>
                 {
-                    b.Property<string>("DoiDauIdTranDau")
+                    b.Property<string>("IdDoiDau")
                         .HasColumnType("varchar(10)");
 
-                    b.Property<int?>("GiaiDauIdGiaiDau")
+                    b.Property<int>("IdGiaiDau")
                         .HasColumnType("int");
 
                     b.Property<string>("KetQua")
@@ -60,16 +60,16 @@ namespace QuanLyGiaiDau.Migrations
                     b.Property<int>("VongDau")
                         .HasColumnType("int");
 
-                    b.HasIndex("DoiDauIdTranDau");
+                    b.HasIndex("IdDoiDau");
 
-                    b.HasIndex("GiaiDauIdGiaiDau");
+                    b.HasIndex("IdGiaiDau");
 
                     b.ToTable("CT_TranDaus");
                 });
 
             modelBuilder.Entity("QuanLyGiaiDau.Models.DoiDau", b =>
                 {
-                    b.Property<string>("IdTranDau")
+                    b.Property<string>("IdDoiDau")
                         .HasColumnType("varchar(10)");
 
                     b.Property<string>("Logo")
@@ -78,7 +78,7 @@ namespace QuanLyGiaiDau.Migrations
                     b.Property<string>("TenDoiDau")
                         .HasColumnType("nvarchar(256)");
 
-                    b.HasKey("IdTranDau");
+                    b.HasKey("IdDoiDau");
 
                     b.ToTable("DoiDaus");
                 });
@@ -189,11 +189,11 @@ namespace QuanLyGiaiDau.Migrations
                 {
                     b.HasOne("QuanLyGiaiDau.Models.DoiDau", "DoiDau")
                         .WithMany()
-                        .HasForeignKey("DoiDauIdTranDau");
+                        .HasForeignKey("IdDoiDau");
 
                     b.HasOne("QuanLyGiaiDau.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserIdUser");
+                        .HasForeignKey("IdUser");
 
                     b.Navigation("DoiDau");
 
@@ -204,11 +204,13 @@ namespace QuanLyGiaiDau.Migrations
                 {
                     b.HasOne("QuanLyGiaiDau.Models.DoiDau", "DoiDau")
                         .WithMany()
-                        .HasForeignKey("DoiDauIdTranDau");
+                        .HasForeignKey("IdDoiDau");
 
                     b.HasOne("QuanLyGiaiDau.Models.GiaiDau", "GiaiDau")
                         .WithMany()
-                        .HasForeignKey("GiaiDauIdGiaiDau");
+                        .HasForeignKey("IdGiaiDau")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("DoiDau");
 

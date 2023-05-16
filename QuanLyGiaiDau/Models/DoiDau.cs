@@ -11,9 +11,9 @@ namespace QuanLyGiaiDau.Models
     public class DoiDau
     {
         [Key]
-        [DisplayName("Id Doi Dau")]
+        
         [Column(TypeName = "varchar(10)")]
-        public string IdTranDau { get; set; }
+        public string IdDoiDau { get; set; }
 
         [Column(TypeName = "nvarchar(256)")]
         public string TenDoiDau { get; set; }

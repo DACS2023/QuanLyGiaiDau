@@ -11,47 +11,47 @@ namespace QuanLyGiaiDau.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class DoiDausController : ControllerBase
     {
         private readonly QuanLyGiaiDauContext _context;
 
-        public UsersController(QuanLyGiaiDauContext context)
+        public DoiDausController(QuanLyGiaiDauContext context)
         {
             _context = context;
         }
 
-        // GET: api/Users
+        // GET: api/DoiDaus
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<DoiDau>>> GetDoiDaus()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.DoiDaus.ToListAsync();
         }
 
-        // GET: api/Users/5
+        // GET: api/DoiDaus/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(string id)
+        public async Task<ActionResult<DoiDau>> GetDoiDau(string id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var doiDau = await _context.DoiDaus.FindAsync(id);
 
-            if (user == null)
+            if (doiDau == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return doiDau;
         }
 
-        // PUT: api/Users/5
+        // PUT: api/DoiDaus/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(string id, User user)
+        public async Task<IActionResult> PutDoiDau(string id, DoiDau doiDau)
         {
-            if (id != user.IdUser)
+            if (id != doiDau.IdDoiDau)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(doiDau).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace QuanLyGiaiDau.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!DoiDauExists(id))
                 {
                     return NotFound();
                 }
@@ -72,19 +72,19 @@ namespace QuanLyGiaiDau.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
+        // POST: api/DoiDaus
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<DoiDau>> PostDoiDau(DoiDau doiDau)
         {
-            _context.Users.Add(user);
+            _context.DoiDaus.Add(doiDau);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserExists(user.IdUser))
+                if (DoiDauExists(doiDau.IdDoiDau))
                 {
                     return Conflict();
                 }
@@ -94,28 +94,28 @@ namespace QuanLyGiaiDau.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUser", new { id = user.IdUser }, user);
+            return CreatedAtAction("GetDoiDau", new { id = doiDau.IdDoiDau }, doiDau);
         }
 
-        // DELETE: api/Users/5
+        // DELETE: api/DoiDaus/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(string id)
+        public async Task<IActionResult> DeleteDoiDau(string id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var doiDau = await _context.DoiDaus.FindAsync(id);
+            if (doiDau == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.DoiDaus.Remove(doiDau);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(string id)
+        private bool DoiDauExists(string id)
         {
-            return _context.Users.Any(e => e.IdUser == id);
+            return _context.DoiDaus.Any(e => e.IdDoiDau == id);
         }
     }
 }
