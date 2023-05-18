@@ -105,7 +105,7 @@ namespace QuanLyGiaiDau.Controllers
                 return NotFound();
             }
 
-            _context.LoaiGiaiDau.Remove(loaiGiaiDau);
+            loaiGiaiDau.TrangThai = false;
             await _context.SaveChangesAsync();
 
             return NoContent();
