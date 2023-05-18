@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace QuanLyGiaiDau.Migrations
 {
-    public partial class identity : Migration
+    public partial class idenity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -110,17 +110,17 @@ namespace QuanLyGiaiDau.Migrations
                     MoTa = table.Column<string>(type: "nvarchar(150)", nullable: true),
                     DiaDiem = table.Column<string>(type: "nvarchar(150)", nullable: true),
                     TrangThai = table.Column<bool>(type: "bit", nullable: false),
-                    IdLoaiGiaiDau = table.Column<int>(type: "int", nullable: true)
+                    IdloaiGiaiDau = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_GiaiDaus", x => x.IdGiaiDau);
                     table.ForeignKey(
-                        name: "FK_GiaiDaus_LoaiGiaiDau_IdLoaiGiaiDau",
-                        column: x => x.IdLoaiGiaiDau,
+                        name: "FK_GiaiDaus_LoaiGiaiDau_IdloaiGiaiDau",
+                        column: x => x.IdloaiGiaiDau,
                         principalTable: "LoaiGiaiDau",
                         principalColumn: "IdloaiGiaiDau",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -175,9 +175,9 @@ namespace QuanLyGiaiDau.Migrations
                 column: "IdGiaiDau");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GiaiDaus_IdLoaiGiaiDau",
+                name: "IX_GiaiDaus_IdloaiGiaiDau",
                 table: "GiaiDaus",
-                column: "IdLoaiGiaiDau");
+                column: "IdloaiGiaiDau");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LoaiGiaiDau_IdMonTheThao",

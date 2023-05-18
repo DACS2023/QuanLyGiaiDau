@@ -77,6 +77,12 @@ namespace QuanLyGiaiDau.Controllers
         [HttpPost]
         public async Task<ActionResult<GiaiDau>> PostGiaiDau(GiaiDau giaiDau)
         {
+           // var a =  _context.LoaiGiaiDau.Where(x=>x.IdloaiGiaiDau==giaiDau.IdloaiGiaiDau).First();
+            //if (a==null)
+            //{
+            //    return BadRequest();
+            //}    
+            //giaiDau.LoaiGiaiDau= a;
             _context.GiaiDaus.Add(giaiDau);
             await _context.SaveChangesAsync();
 
@@ -92,8 +98,8 @@ namespace QuanLyGiaiDau.Controllers
             {
                 return NotFound();
             }
-
-            _context.GiaiDaus.Remove(giaiDau);
+            giaiDau.TrangThai = false;
+            
             await _context.SaveChangesAsync();
 
             return NoContent();

@@ -31,8 +31,11 @@ namespace QuanLyGiaiDau.Models
         [Column(TypeName = "bit")]
         public bool TrangThai { get; set; }
 
-        [ForeignKey("IdLoaiGiaiDau")]
-        public virtual LoaiGiaiDau LoaiGiaiDau { get; set; }
+        [Column(TypeName = "int")]
+        public int IdloaiGiaiDau { get; set; }
+
+        [ForeignKey("IdloaiGiaiDau")]
+        public virtual LoaiGiaiDau  LoaiGiaiDau { get; set; }
 
     }
 }

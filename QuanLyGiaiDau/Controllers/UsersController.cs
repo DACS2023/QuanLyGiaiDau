@@ -106,9 +106,9 @@ namespace QuanLyGiaiDau.Controllers
             {
                 return NotFound();
             }
-
-            _context.Users.Remove(user);
+            user.TrangThai= false;
             await _context.SaveChangesAsync();
+           
 
             return NoContent();
         }

@@ -10,8 +10,8 @@ using QuanLyGiaiDau.Models;
 namespace QuanLyGiaiDau.Migrations
 {
     [DbContext(typeof(QuanLyGiaiDauContext))]
-    [Migration("20230516161447_identity")]
-    partial class identity
+    [Migration("20230518025718_idenity")]
+    partial class idenity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -109,7 +109,7 @@ namespace QuanLyGiaiDau.Migrations
                     b.Property<string>("DiaDiem")
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<int?>("IdLoaiGiaiDau")
+                    b.Property<int>("IdloaiGiaiDau")
                         .HasColumnType("int");
 
                     b.Property<string>("MoTa")
@@ -126,7 +126,7 @@ namespace QuanLyGiaiDau.Migrations
 
                     b.HasKey("IdGiaiDau");
 
-                    b.HasIndex("IdLoaiGiaiDau");
+                    b.HasIndex("IdloaiGiaiDau");
 
                     b.ToTable("GiaiDaus");
                 });
@@ -237,7 +237,9 @@ namespace QuanLyGiaiDau.Migrations
                 {
                     b.HasOne("QuanLyGiaiDau.Models.LoaiGiaiDau", "LoaiGiaiDau")
                         .WithMany()
-                        .HasForeignKey("IdLoaiGiaiDau");
+                        .HasForeignKey("IdloaiGiaiDau")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("LoaiGiaiDau");
                 });

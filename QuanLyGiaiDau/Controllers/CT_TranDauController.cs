@@ -77,6 +77,14 @@ namespace QuanLyGiaiDau.Controllers
         [HttpPost]
         public async Task<ActionResult<CT_TranDau>> PostCT_TranDau(CT_TranDau cT_TranDau)
         {
+            var a = _context.DoiDaus.Where(x => x.IdDoiDau == cT_TranDau.IdDoiDau).First();
+            var b = _context.GiaiDaus.Where(x => x.IdGiaiDau == cT_TranDau.IdGiaiDau).First();
+            if (a == null || b == null)
+            {
+                return BadRequest();
+            }
+            cT_TranDau.DoiDau = a;
+            cT_TranDau.GiaiDau = b;
             _context.CT_TranDaus.Add(cT_TranDau);
             await _context.SaveChangesAsync();
 

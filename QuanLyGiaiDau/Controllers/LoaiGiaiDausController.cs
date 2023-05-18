@@ -78,6 +78,10 @@ namespace QuanLyGiaiDau.Controllers
         public async Task<ActionResult<LoaiGiaiDau>> PostLoaiGiaiDau(LoaiGiaiDau loaiGiaiDau)
         {
             var a = _context.MonTheThaos.Where(x => x.IdMonTheThao== loaiGiaiDau.IdMonTheThao).First();
+            if(a==null)
+            {
+                return BadRequest();
+            }    
             loaiGiaiDau.MonTheThao = a;
 
             _context.LoaiGiaiDau.Add(loaiGiaiDau);

@@ -77,6 +77,14 @@ namespace QuanLyGiaiDau.Controllers
         [HttpPost]
         public async Task<ActionResult<CT_DoiDau>> PostCT_DoiDau(CT_DoiDau cT_DoiDau)
         {
+            var a = _context.DoiDaus.Where(d => d.IdDoiDau== cT_DoiDau.IdDoiDau).First();
+            var b = _context.Users.Where(d=>d.IdUser==cT_DoiDau.IdUser).First();
+            if (a==null || b == null)
+            {
+                return BadRequest();
+            }
+            cT_DoiDau.DoiDau = a;
+            cT_DoiDau.User= b;
             _context.CT_DoiDaus.Add(cT_DoiDau);
             await _context.SaveChangesAsync();
 
