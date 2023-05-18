@@ -18,7 +18,6 @@ namespace QuanLyGiaiDau.Models
         [Column(TypeName = "nvarchar(256)")]
         public string TenDoiDau { get; set; }
 
-
         [Column(TypeName = "nvarchar(256)")]
         public string Logo { get; set; }
 
