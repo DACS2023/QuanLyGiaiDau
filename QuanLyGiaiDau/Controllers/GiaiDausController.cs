@@ -77,12 +77,12 @@ namespace QuanLyGiaiDau.Controllers
         [HttpPost]
         public async Task<ActionResult<GiaiDau>> PostGiaiDau(GiaiDau giaiDau)
         {
-           // var a =  _context.LoaiGiaiDau.Where(x=>x.IdloaiGiaiDau==giaiDau.IdloaiGiaiDau).First();
-            //if (a==null)
-            //{
-            //    return BadRequest();
-            //}    
-            //giaiDau.LoaiGiaiDau= a;
+            var a = _context.LoaiGiaiDau.Where(x => x.IdloaiGiaiDau == giaiDau.IdGiaiDau).First();
+            if (a == null)
+            {
+                return BadRequest();
+            }
+            giaiDau.LoaiGiaiDau = a;
             _context.GiaiDaus.Add(giaiDau);
             await _context.SaveChangesAsync();
 

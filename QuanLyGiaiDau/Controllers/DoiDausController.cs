@@ -24,6 +24,7 @@ namespace QuanLyGiaiDau.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DoiDau>>> GetDoiDaus()
         {
+            
             return await _context.DoiDaus.ToListAsync();
         }
 

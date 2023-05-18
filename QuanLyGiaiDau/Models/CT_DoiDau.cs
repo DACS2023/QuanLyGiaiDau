@@ -16,16 +16,20 @@ namespace QuanLyGiaiDau.Models
 
         [Column(TypeName = "varchar(10)")]
         public string IdUser { get; set; }
+        
         [ForeignKey("IdUser")]
         public virtual User User { get; set; }
 
         [Column(TypeName = "varchar(10)")]
         public string IdDoiDau { get; set; }
+
         [ForeignKey("IdDoiDau")]
         public virtual DoiDau DoiDau { get; set; }
 
-
         [Column(TypeName = "bit")]
         public bool TrangThaiTV { get; set; }
+
+        
     }
+    
 }

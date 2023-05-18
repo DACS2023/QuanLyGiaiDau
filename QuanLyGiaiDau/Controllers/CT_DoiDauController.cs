@@ -24,7 +24,13 @@ namespace QuanLyGiaiDau.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CT_DoiDau>>> GetCT_DoiDaus()
         {
-            return await _context.CT_DoiDaus.ToListAsync();
+            var a = await _context.CT_DoiDaus.ToListAsync();
+            foreach(var item in a)
+            {
+                item.DoiDau =_context.DoiDaus.Where(d => d.IdDoiDau == item.IdDoiDau).First();
+                item.User = _context.Users.Where(d => d.IdUser == item.IdUser).First();
+            }
+            return a;
         }
 
         // GET: api/CT_DoiDau/5

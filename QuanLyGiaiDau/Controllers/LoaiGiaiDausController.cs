@@ -24,7 +24,12 @@ namespace QuanLyGiaiDau.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LoaiGiaiDau>>> GetLoaiGiaiDau()
         {
-            return await _context.LoaiGiaiDau.ToListAsync();
+            var a = await _context.LoaiGiaiDau.ToListAsync();
+            foreach(var item in a)
+            {
+                item.MonTheThao = _context.MonTheThaos.Where(x => x.IdMonTheThao == item.IdMonTheThao).First();
+            }
+            return a; 
         }
 
         // GET: api/LoaiGiaiDaus/5

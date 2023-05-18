@@ -38,4 +38,5 @@ namespace QuanLyGiaiDau.Models
         public virtual LoaiGiaiDau  LoaiGiaiDau { get; set; }
 
     }
+    
 }
