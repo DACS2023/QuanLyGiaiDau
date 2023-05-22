@@ -118,5 +118,7 @@ namespace QuanLyGiaiDau.Controllers
         {
             return _context.CT_TranDaus.Any(e => e.IdCTTranDau == id);
         }
+
+        
     }
 }
