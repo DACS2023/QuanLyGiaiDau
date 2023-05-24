@@ -30,6 +30,15 @@ namespace QuanLyGiaiDau
         {
 
             services.AddControllers();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
+            });
             services.AddDbContext<QuanLyGiaiDauContext>(opt =>
                                                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             //services.AddSwaggerGen(c =>
@@ -47,7 +56,7 @@ namespace QuanLyGiaiDau
                 //app.UseSwagger();
                 //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "QuanLyGiaiDau v1"));
             }
-
+            app.UseCors();
             app.UseHttpsRedirection();
 
             app.UseRouting();

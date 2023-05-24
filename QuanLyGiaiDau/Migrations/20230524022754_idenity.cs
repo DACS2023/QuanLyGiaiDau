@@ -135,7 +135,7 @@ namespace QuanLyGiaiDau.Migrations
                     VongDau = table.Column<int>(type: "int", nullable: false),
                     SanDau = table.Column<string>(type: "nvarchar(256)", nullable: true),
                     TiSo = table.Column<int>(type: "int", nullable: false),
-                    KetQua = table.Column<string>(type: "varchar(50)", nullable: true)
+                    KetQua = table.Column<string>(type: "nvarchar(50)", nullable: true)
                 },
                 constraints: table =>
                 {
