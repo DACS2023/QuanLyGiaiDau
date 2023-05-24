@@ -10,7 +10,7 @@ using QuanLyGiaiDau.Models;
 namespace QuanLyGiaiDau.Migrations
 {
     [DbContext(typeof(QuanLyGiaiDauContext))]
-    [Migration("20230518025718_idenity")]
+    [Migration("20230524022754_idenity")]
     partial class idenity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,7 +60,7 @@ namespace QuanLyGiaiDau.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("KetQua")
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("SanDau")
                         .HasColumnType("nvarchar(256)");

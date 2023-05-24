@@ -38,7 +38,7 @@ namespace QuanLyGiaiDau.Models
         [Column(TypeName = "int")]
         public int TiSo { get; set; }
 
-        [Column(TypeName = "varchar(50)")]
+        [Column(TypeName = "nvarchar(50)")]
         public string KetQua { get; set; }
     }
 }

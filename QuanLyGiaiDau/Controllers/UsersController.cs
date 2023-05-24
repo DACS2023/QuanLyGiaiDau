@@ -59,7 +59,7 @@ namespace QuanLyGiaiDau.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!UserExists(user))
                 {
                     return NotFound();
                 }
@@ -84,7 +84,7 @@ namespace QuanLyGiaiDau.Controllers
             }
             catch (DbUpdateException)
             {
-                if (UserExists(user.IdUser))
+                if (UserExists(user))
                 {
                     return Conflict();
                 }
@@ -113,9 +113,61 @@ namespace QuanLyGiaiDau.Controllers
             return NoContent();
         }
 
-        private bool UserExists(string id)
+        private bool UserExists(User user)
         {
-            return _context.Users.Any(e => e.IdUser == id);
+            var a = _context.Users.Where(x=>x.Email == user.Email || x.IdUser == user.Password).ToList();
+            if( a == null)
+                return false;
+            return true;
+            
         }
+
+        [HttpPost]
+        [Route("/api/dang-nhap")]
+        public async Task<ActionResult<User>> DangNhap(UserLogin userLogin)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == userLogin.Email && x.Password == userLogin.Password);
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            
+
+            return user;
+        }
+
+        [HttpPost]
+        [Route("/api/dang-ky")]
+        public async Task<ActionResult<User>> DangKy(User user)
+        {
+            user.TrangThai = true;
+            user.Role = "User";
+
+            _context.Users.Add(user);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (UserExists(user))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtAction("GetUser", new { id = user.IdUser }, user);
+        }
+    }
+    public class UserLogin
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }

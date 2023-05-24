@@ -58,7 +58,7 @@ namespace QuanLyGiaiDau.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("KetQua")
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("SanDau")
                         .HasColumnType("nvarchar(256)");

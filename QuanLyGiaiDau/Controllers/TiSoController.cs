@@ -48,6 +48,22 @@ namespace QuanLyGiaiDau.Controllers
                         tiSoModel.SanDau = a[i].SanDau;
                         tiSoModel.GiaiDau.LoaiGiaiDau = _context.LoaiGiaiDau.Where(x => x.IdloaiGiaiDau == a[i].GiaiDau.IdloaiGiaiDau).FirstOrDefault();
                         tiSoModel.GiaiDau.LoaiGiaiDau.MonTheThao = _context.MonTheThaos.Where(x => x.IdMonTheThao == a[i].GiaiDau.LoaiGiaiDau.IdMonTheThao).FirstOrDefault();
+                        if (a[i].KetQua =="Win" && a[j].KetQua =="Lose")
+                        {
+                            tiSoModel.DoiThang = 1;
+                        }
+                        else if(a[j].KetQua =="Win" && a[i].KetQua =="Lose")
+                        {
+                            tiSoModel.DoiThang = 2;
+                        }    
+                        else if (a[i].KetQua == null && a[j].KetQua==null)
+                        {
+                            tiSoModel.DoiThang= 0;
+                        }    
+                        else if(a[i].KetQua =="Tie" && a[j].KetQua =="Tie")
+                        {
+                            tiSoModel.DoiThang = 3;
+                        }    
                         TiSos.Add(tiSoModel);
                         
                         break;
@@ -57,44 +73,83 @@ namespace QuanLyGiaiDau.Controllers
             }
             return TiSos;
         }
-        //[HttpPut]
-        //[Route("api/update-ti-so")]
-        //public async Task<IActionResult> UpdateTiSo(TiSoModel TiSo)
-        //{
-        //    //var UpdateDoi1 = await _context.CT_TranDaus.Where(x => x.IdGiaiDau.Equals(TiSo.GiaiDau.IdGiaiDau)  && x.IdDoiDau.Equals(TiSo.Doi1.IdDoiDau)  && x.SanDau.Equals(TiSo.SanDau)
-        //    //&& x.ThoiGianBatDau.Equals(TiSo.ThoiGianBatDau)).FirstAsync();
-        //    //var UpdateDoi2 = await _context.CT_TranDaus.Where(x => x.IdGiaiDau.Equals(TiSo.GiaiDau.IdGiaiDau) && x.IdDoiDau.Equals(TiSo.Doi2.IdDoiDau) && x.SanDau.Equals(TiSo.SanDau)
-        //    //&& x.ThoiGianBatDau.Equals(TiSo.ThoiGianBatDau)).FirstAsync();
-        //    //CT_TranDau updateD1 = new CT_TranDau();
-        //    //CT_TranDau updateD2 = new CT_TranDau();
+        [HttpPut]
+        [Route("api/update-ti-so")]
+        public async Task<IActionResult> UpdateTiSo([FromBody] TiSoModel TiSo)
+        {
+            var UpdateDoi1 = await _context.CT_TranDaus.Where(x => x.IdGiaiDau.Equals(TiSo.GiaiDau.IdGiaiDau) && x.IdDoiDau.Equals(TiSo.Doi1.IdDoiDau) && x.SanDau.Equals(TiSo.SanDau)
+            && x.ThoiGianBatDau.Equals(TiSo.ThoiGianBatDau)).FirstAsync();
+            var UpdateDoi2 = await _context.CT_TranDaus.Where(x => x.IdGiaiDau.Equals(TiSo.GiaiDau.IdGiaiDau) && x.IdDoiDau.Equals(TiSo.Doi2.IdDoiDau) && x.SanDau.Equals(TiSo.SanDau)
+            && x.ThoiGianBatDau.Equals(TiSo.ThoiGianBatDau)).FirstAsync();
+            //CT_TranDau updateD1 = new CT_TranDau();
+            //CT_TranDau updateD2 = new CT_TranDau();
 
-        //    //var UpdateDoi1 = await _context.CT_TranDaus.Where(x => x.IdDoiDau.Equals(TiSo.Doi1.IdDoiDau.Trim())).FirstAsync();
-        //    //var UpdateDoi2 = await _context.CT_TranDaus.Where(x => x.IdDoiDau.Equals(TiSo.Doi2.IdDoiDau.Trim())).FirstAsync();
-        //    //UpdateDoi1.TiSo = TiSo.TiSoDoi1;
-        //    //UpdateDoi2.TiSo = TiSo.TiSoDoi2;
-        //    //if (TiSo.DoiThang.Equals(1))
-        //    //{
-        //    //    UpdateDoi1.KetQua = "Thắng";
-        //    //    UpdateDoi2.KetQua = "Thua";
-        //    //}
-        //    //if (TiSo.DoiThang.Equals(2))
-        //    //{
-        //    //    UpdateDoi1.KetQua = "Thua";
-        //    //    UpdateDoi2.KetQua = "Thắng";
-        //    //}
-        //    //if (TiSo.DoiThang.Equals(0))
-        //    //{
-        //    //    UpdateDoi1.KetQua = null;
-        //    //    UpdateDoi2.KetQua = null;
-        //    //}
+            //var UpdateDoi1 = await _context.CT_TranDaus.Where(x => x.IdDoiDau.Equals(TiSo.Doi1.IdDoiDau.Trim())).FirstAsync();
+            //var UpdateDoi2 = await _context.CT_TranDaus.Where(x => x.IdDoiDau.Equals(TiSo.Doi2.IdDoiDau.Trim())).FirstAsync();
+            UpdateDoi1.TiSo = TiSo.TiSoDoi1;
+            UpdateDoi2.TiSo = TiSo.TiSoDoi2;
+            if (TiSo.DoiThang.Equals(1))
+            {
+                UpdateDoi1.KetQua = "Win";
+                UpdateDoi2.KetQua = "Lose";
+            }
+            if (TiSo.DoiThang.Equals(2))
+            {
+                UpdateDoi1.KetQua = "Lose";
+                UpdateDoi2.KetQua = "Win";
+            }
+            if (TiSo.DoiThang.Equals(0))
+            {
+                UpdateDoi1.KetQua = null;
+                UpdateDoi2.KetQua = null;
+            }
 
-        //    //_context.Entry(UpdateDoi1).State = EntityState.Modified;
-        //    //_context.Entry(UpdateDoi2).State = EntityState.Modified;
-        //    //await _context.SaveChangesAsync();
-        //    return (IActionResult)TiSo;
+            _context.Entry(UpdateDoi1).State = EntityState.Modified;
+            _context.Entry(UpdateDoi2).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            
 
-        //    return NoContent();
-        //}
+            return NoContent();
+        }
+
+        [HttpPut]
+        [Route("api/ket-thuc-tran-dau")]
+        public async Task<IActionResult> KetThucTran([FromBody] TiSoModel TiSo)
+        {
+            var UpdateDoi1 = await _context.CT_TranDaus.Where(x => x.IdGiaiDau.Equals(TiSo.GiaiDau.IdGiaiDau) && x.IdDoiDau.Equals(TiSo.Doi1.IdDoiDau) && x.SanDau.Equals(TiSo.SanDau)
+            && x.ThoiGianBatDau.Equals(TiSo.ThoiGianBatDau)).FirstAsync();
+            var UpdateDoi2 = await _context.CT_TranDaus.Where(x => x.IdGiaiDau.Equals(TiSo.GiaiDau.IdGiaiDau) && x.IdDoiDau.Equals(TiSo.Doi2.IdDoiDau) && x.SanDau.Equals(TiSo.SanDau)
+            && x.ThoiGianBatDau.Equals(TiSo.ThoiGianBatDau)).FirstAsync();
+            //CT_TranDau updateD1 = new CT_TranDau();
+            //CT_TranDau updateD2 = new CT_TranDau();
+
+            //var UpdateDoi1 = await _context.CT_TranDaus.Where(x => x.IdDoiDau.Equals(TiSo.Doi1.IdDoiDau.Trim())).FirstAsync();
+            //var UpdateDoi2 = await _context.CT_TranDaus.Where(x => x.IdDoiDau.Equals(TiSo.Doi2.IdDoiDau.Trim())).FirstAsync();
+            UpdateDoi1.TiSo = TiSo.TiSoDoi1;
+            UpdateDoi2.TiSo = TiSo.TiSoDoi2;
+            if (TiSo.TiSoDoi1 > TiSo.TiSoDoi2)
+            {
+                UpdateDoi1.KetQua = "Win";
+                UpdateDoi2.KetQua = "Lose";
+            }
+            if (TiSo.TiSoDoi1 < TiSo.TiSoDoi2)
+            {
+                UpdateDoi1.KetQua = "Lose";
+                UpdateDoi2.KetQua = "Win";
+            }
+            if (TiSo.TiSoDoi1 == TiSo.TiSoDoi2)
+            {
+                UpdateDoi1.KetQua = "Tie";
+                UpdateDoi2.KetQua = "Tie";
+            }
+            
+            _context.Entry(UpdateDoi1).State = EntityState.Modified;
+            _context.Entry(UpdateDoi2).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+
+            return NoContent();
+        }
     }
-    
+
 }
