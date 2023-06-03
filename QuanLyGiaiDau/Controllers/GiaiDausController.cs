@@ -27,7 +27,7 @@ namespace QuanLyGiaiDau.Controllers
             var a = await _context.GiaiDaus.ToListAsync();
             foreach(var item in a)
             {
-                item.LoaiGiaiDau = _context.LoaiGiaiDau.Where(x => x.IdloaiGiaiDau == item.IdGiaiDau).First();
+                item.MonTheThao = _context.MonTheThaos.Where(x => x.IdMonTheThao == item.IdMonTheThao).First();
             }
             return a;
         }
@@ -82,12 +82,12 @@ namespace QuanLyGiaiDau.Controllers
         [HttpPost]
         public async Task<ActionResult<GiaiDau>> PostGiaiDau(GiaiDau giaiDau)
         {
-            var a = _context.LoaiGiaiDau.Where(x => x.IdloaiGiaiDau == giaiDau.IdGiaiDau).First();
+            var a = _context.MonTheThaos.Where(x => x.IdMonTheThao == giaiDau.MonTheThao.IdMonTheThao).First();
             if (a == null)
             {
                 return BadRequest();
             }
-            giaiDau.LoaiGiaiDau = a;
+            giaiDau.MonTheThao = a;
             _context.GiaiDaus.Add(giaiDau);
             await _context.SaveChangesAsync();
 

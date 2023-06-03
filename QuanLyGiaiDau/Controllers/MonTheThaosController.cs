@@ -43,13 +43,10 @@ namespace QuanLyGiaiDau.Controllers
 
         // PUT: api/MonTheThaos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMonTheThao(string id, MonTheThao monTheThao)
+        [HttpPut]
+        public async Task<IActionResult> PutMonTheThao( MonTheThao monTheThao)
         {
-            if (id != monTheThao.IdMonTheThao)
-            {
-                return BadRequest();
-            }
+            
 
             _context.Entry(monTheThao).State = EntityState.Modified;
 
@@ -59,7 +56,7 @@ namespace QuanLyGiaiDau.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MonTheThaoExists(id))
+                if (!MonTheThaoExists(monTheThao.IdMonTheThao))
                 {
                     return NotFound();
                 }

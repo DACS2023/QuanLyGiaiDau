@@ -118,5 +118,22 @@ namespace QuanLyGiaiDau.Controllers
         {
             return _context.DoiDaus.Any(e => e.IdDoiDau == id);
         }
+
+        [HttpGet("{id}/danh-sach-player")]
+        public async Task<ActionResult<IEnumerable<User>>> GetPlayersByDoiDauId(string id)
+        {
+            var listUser = await _context.Users
+                .Join(
+                    _context.CT_DoiDaus,
+                    user => user.IdUser,
+                    ct => ct.IdUser,
+                    (user, ct) => new { User = user, CT_DoiDau = ct }
+                )
+                .Where(join => join.CT_DoiDau.IdDoiDau == id)
+                .Select(join => join.User)
+                .ToListAsync();
+
+            return listUser;
+        }
     }
 }

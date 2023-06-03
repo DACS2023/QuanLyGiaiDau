@@ -31,11 +31,11 @@ namespace QuanLyGiaiDau.Models
         [Column(TypeName = "bit")]
         public bool TrangThai { get; set; }
 
-        [Column(TypeName = "int")]
-        public int IdloaiGiaiDau { get; set; }
+        [Column(TypeName = "varchar(10)")]
+        public string IdMonTheThao { get; set; }
 
-        [ForeignKey("IdloaiGiaiDau")]
-        public virtual LoaiGiaiDau  LoaiGiaiDau { get; set; }
+        [ForeignKey("IdMonTheThao")]
+        public virtual MonTheThao MonTheThao { get; set; }
 
     }
     

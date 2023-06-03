@@ -14,6 +14,7 @@ namespace QuanLyGiaiDau.Controllers
     public class CT_DoiDauController : ControllerBase
     {
         private readonly QuanLyGiaiDauContext _context;
+        private ActionResult<IEnumerable<DoiDau>> listUser;
 
         public CT_DoiDauController(QuanLyGiaiDauContext context)
         {
@@ -81,20 +82,28 @@ namespace QuanLyGiaiDau.Controllers
         // POST: api/CT_DoiDau
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<CT_DoiDau>> PostCT_DoiDau(CT_DoiDau cT_DoiDau)
+        public async Task<ActionResult<CT_DoiDau>> PostCT_DoiDau([FromBody] CT_DoiDau cT_DoiDau)
         {
-            var a = _context.DoiDaus.Where(d => d.IdDoiDau== cT_DoiDau.IdDoiDau).First();
-            var b = _context.Users.Where(d=>d.IdUser==cT_DoiDau.IdUser).First();
-            if (a==null || b == null)
+            var a =  await _context.DoiDaus.Where(d => d.IdDoiDau== cT_DoiDau.IdDoiDau).FirstOrDefaultAsync();
+            var b = await _context.Users.Where(d=>d.IdUser==cT_DoiDau.IdUser).FirstOrDefaultAsync();
+            
+            if (a==null || b == null )
             {
                 return BadRequest();
             }
-            cT_DoiDau.DoiDau = a;
-            cT_DoiDau.User= b;
-            _context.CT_DoiDaus.Add(cT_DoiDau);
-            await _context.SaveChangesAsync();
+            
+            
 
-            return CreatedAtAction("GetCT_DoiDau", new { id = cT_DoiDau.IdCTDoiDau }, cT_DoiDau);
+            cT_DoiDau.DoiDau = a;
+                cT_DoiDau.User = b;
+                cT_DoiDau.TrangThaiTV = true;
+                _context.CT_DoiDaus.Add(cT_DoiDau);
+
+                await _context.SaveChangesAsync();
+                
+                return CreatedAtAction("GetCT_DoiDau", new { id = cT_DoiDau.IdCTDoiDau }, cT_DoiDau);
+              
+            
         }
 
         // DELETE: api/CT_DoiDau/5
@@ -116,6 +125,34 @@ namespace QuanLyGiaiDau.Controllers
         private bool CT_DoiDauExists(int id)
         {
             return _context.CT_DoiDaus.Any(e => e.IdCTDoiDau == id);
+        }
+
+
+
+        [HttpPost]
+        [Route("tham-gia-doi")]
+        public async Task<ActionResult<CT_DoiDau>> ThemThanhVienVaoDoi([FromBody] CT_DoiDau cT_DoiDau)
+        {
+            var a = await _context.DoiDaus.Where(d => d.IdDoiDau == cT_DoiDau.IdDoiDau).FirstOrDefaultAsync();
+            var b = await _context.Users.Where(d => d.IdUser == cT_DoiDau.IdUser).FirstOrDefaultAsync();
+            var c = await _context.CT_DoiDaus.Where(d=>d.IdUser == cT_DoiDau.IdUser && d.IdDoiDau == cT_DoiDau.IdDoiDau).FirstOrDefaultAsync();
+            if (a == null || b == null || c !=null)
+            {
+                return BadRequest();
+            }
+
+
+
+            cT_DoiDau.DoiDau = a;
+            cT_DoiDau.User = b;
+            cT_DoiDau.TrangThaiTV = true;
+            _context.CT_DoiDaus.Add(cT_DoiDau);
+
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetCT_DoiDau", new { id = cT_DoiDau.IdCTDoiDau }, cT_DoiDau);
+
+
         }
     }
 }

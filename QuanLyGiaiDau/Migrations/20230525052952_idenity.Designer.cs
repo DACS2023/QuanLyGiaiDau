@@ -10,7 +10,7 @@ using QuanLyGiaiDau.Models;
 namespace QuanLyGiaiDau.Migrations
 {
     [DbContext(typeof(QuanLyGiaiDauContext))]
-    [Migration("20230524022754_idenity")]
+    [Migration("20230525052952_idenity")]
     partial class idenity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -109,8 +109,8 @@ namespace QuanLyGiaiDau.Migrations
                     b.Property<string>("DiaDiem")
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<int>("IdloaiGiaiDau")
-                        .HasColumnType("int");
+                    b.Property<string>("IdMonTheThao")
+                        .HasColumnType("varchar(10)");
 
                     b.Property<string>("MoTa")
                         .HasColumnType("nvarchar(150)");
@@ -126,29 +126,9 @@ namespace QuanLyGiaiDau.Migrations
 
                     b.HasKey("IdGiaiDau");
 
-                    b.HasIndex("IdloaiGiaiDau");
-
-                    b.ToTable("GiaiDaus");
-                });
-
-            modelBuilder.Entity("QuanLyGiaiDau.Models.LoaiGiaiDau", b =>
-                {
-                    b.Property<int>("IdloaiGiaiDau")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("IdMonTheThao")
-                        .HasColumnType("varchar(10)");
-
-                    b.Property<bool>("TrangThai")
-                        .HasColumnType("bit");
-
-                    b.HasKey("IdloaiGiaiDau");
-
                     b.HasIndex("IdMonTheThao");
 
-                    b.ToTable("LoaiGiaiDau");
+                    b.ToTable("GiaiDaus");
                 });
 
             modelBuilder.Entity("QuanLyGiaiDau.Models.MonTheThao", b =>
@@ -234,17 +214,6 @@ namespace QuanLyGiaiDau.Migrations
                 });
 
             modelBuilder.Entity("QuanLyGiaiDau.Models.GiaiDau", b =>
-                {
-                    b.HasOne("QuanLyGiaiDau.Models.LoaiGiaiDau", "LoaiGiaiDau")
-                        .WithMany()
-                        .HasForeignKey("IdloaiGiaiDau")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("LoaiGiaiDau");
-                });
-
-            modelBuilder.Entity("QuanLyGiaiDau.Models.LoaiGiaiDau", b =>
                 {
                     b.HasOne("QuanLyGiaiDau.Models.MonTheThao", "MonTheThao")
                         .WithMany()

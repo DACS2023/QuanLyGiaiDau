@@ -53,19 +53,23 @@ namespace QuanLyGiaiDau.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LoaiGiaiDau",
+                name: "GiaiDaus",
                 columns: table => new
                 {
-                    IdloaiGiaiDau = table.Column<int>(type: "int", nullable: false)
+                    IdGiaiDau = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    TenGiaiDau = table.Column<string>(type: "nvarchar(150)", nullable: true),
+                    NgayBatDau = table.Column<DateTime>(type: "Datetime", nullable: false),
+                    MoTa = table.Column<string>(type: "nvarchar(150)", nullable: true),
+                    DiaDiem = table.Column<string>(type: "nvarchar(150)", nullable: true),
                     TrangThai = table.Column<bool>(type: "bit", nullable: false),
                     IdMonTheThao = table.Column<string>(type: "varchar(10)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LoaiGiaiDau", x => x.IdloaiGiaiDau);
+                    table.PrimaryKey("PK_GiaiDaus", x => x.IdGiaiDau);
                     table.ForeignKey(
-                        name: "FK_LoaiGiaiDau_MonTheThaos_IdMonTheThao",
+                        name: "FK_GiaiDaus_MonTheThaos_IdMonTheThao",
                         column: x => x.IdMonTheThao,
                         principalTable: "MonTheThaos",
                         principalColumn: "IdMonTheThao",
@@ -97,30 +101,6 @@ namespace QuanLyGiaiDau.Migrations
                         principalTable: "Users",
                         principalColumn: "IdUser",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GiaiDaus",
-                columns: table => new
-                {
-                    IdGiaiDau = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TenGiaiDau = table.Column<string>(type: "nvarchar(150)", nullable: true),
-                    NgayBatDau = table.Column<DateTime>(type: "Datetime", nullable: false),
-                    MoTa = table.Column<string>(type: "nvarchar(150)", nullable: true),
-                    DiaDiem = table.Column<string>(type: "nvarchar(150)", nullable: true),
-                    TrangThai = table.Column<bool>(type: "bit", nullable: false),
-                    IdloaiGiaiDau = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GiaiDaus", x => x.IdGiaiDau);
-                    table.ForeignKey(
-                        name: "FK_GiaiDaus_LoaiGiaiDau_IdloaiGiaiDau",
-                        column: x => x.IdloaiGiaiDau,
-                        principalTable: "LoaiGiaiDau",
-                        principalColumn: "IdloaiGiaiDau",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -175,13 +155,8 @@ namespace QuanLyGiaiDau.Migrations
                 column: "IdGiaiDau");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GiaiDaus_IdloaiGiaiDau",
+                name: "IX_GiaiDaus_IdMonTheThao",
                 table: "GiaiDaus",
-                column: "IdloaiGiaiDau");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_LoaiGiaiDau_IdMonTheThao",
-                table: "LoaiGiaiDau",
                 column: "IdMonTheThao");
         }
 
@@ -201,9 +176,6 @@ namespace QuanLyGiaiDau.Migrations
 
             migrationBuilder.DropTable(
                 name: "GiaiDaus");
-
-            migrationBuilder.DropTable(
-                name: "LoaiGiaiDau");
 
             migrationBuilder.DropTable(
                 name: "MonTheThaos");
