@@ -135,8 +135,8 @@ namespace QuanLyGiaiDau.Controllers
         {
             var a = await _context.DoiDaus.Where(d => d.IdDoiDau == cT_DoiDau.IdDoiDau).FirstOrDefaultAsync();
             var b = await _context.Users.Where(d => d.IdUser == cT_DoiDau.IdUser).FirstOrDefaultAsync();
-            var c = await _context.CT_DoiDaus.Where(d=>d.IdUser == cT_DoiDau.IdUser && d.IdDoiDau == cT_DoiDau.IdDoiDau).FirstOrDefaultAsync();
-            if (a == null || b == null || c !=null)
+            //var c = await _context.CT_DoiDaus.Where(d=>d.IdUser == cT_DoiDau.IdUser && d.IdDoiDau == cT_DoiDau.IdDoiDau).FirstOrDefaultAsync();
+            if (a == null || b == null )
             {
                 return BadRequest();
             }
